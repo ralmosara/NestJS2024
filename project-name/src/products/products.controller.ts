@@ -2,15 +2,14 @@ import { Controller, Get, Query, Post, Body, Put, Param, Delete } from '@nestjs/
 import { ProductsService } from './products.service';
 @Controller('products')
 export class ProductsController {
-    constructor(private ProductService: ProductsService) {
+    constructor(private productService: ProductsService) {
 
     }
 
-
     @Get()
-    getProducts(): any {
-        return  {products:'All Products'};
-
+    getProducts() {
+ 
+        return  this.productService.getProducts();
     }
 
     @Post()
@@ -20,8 +19,7 @@ export class ProductsController {
         @Body('price') pPrice:number,
 
     ){
-        const returnedId = this.ProductService.insertProduct(pTitle,pDescription,pPrice);
-
+        const returnedId = this.productService.insertProduct(pTitle,pDescription,pPrice);
         return {id:returnedId};
     }
   
